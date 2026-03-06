@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qingyu Yin - Academic Profile</title>
+    <!-- 使用 Inter 字体还原干净清爽的无衬线视觉效果 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="assets/main.jpg" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --link-blue: #5b7a9d; /* 还原原图中经典的低饱和度学术蓝 */
+            --link-hover: #3a536e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部导航栏 (在子页面更明显) */
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 2rem 4rem;
+            font-size: 0.95rem;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+        }
+
+        /* 页面容器 */
+        .page-container {
+            max-width: 900px;
+            margin: 5vh auto 10vh;
+            padding: 0 2rem;
+            display: none; /* 默认隐藏，由 JS 控制显示 */
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 首页特定布局 (左右分栏) --- */
+        #home-page.active {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-top: 10vh;
+        }
+
+        .profile-image {
+            flex-shrink: 0;
+        }
+
+        .profile-image img {
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: grayscale(100%); /* 照片黑白化，提升高级感 */
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .profile-info h1 {
+            font-weight: 300; /* 极细字体还原 Dan Fu 主页效果 */
+            font-size: 3.5rem;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.03em;
+            color: #111;
+        }
+
+        .profile-info p {
+            margin: 0.2rem 0;
+            font-size: 1.05rem;
+        }
+
+        .info-block {
+            margin-bottom: 1.5rem;
+        }
+
+        /* 蓝色学术链接 */
+        a.academic-link {
+            color: var(--link-blue);
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            text-underline-offset: 3px;
+            transition: all 0.2s;
+        }
+
+        a.academic-link:hover {
+            color: var(--link-hover);
+            text-decoration-color: var(--link-hover);
+        }
+
+        /* 底部链接排布 */
+        .bottom-links {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .bottom-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .bottom-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* --- 子页面通用样式 --- */
+        .subpage-title {
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .list-item {
+            margin-bottom: 1.8rem;
+        }
+
+        .list-item-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .list-item-title a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .list-item-title a:hover {
+            text-decoration: underline;
+        }
+
+        .list-item-meta {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .resource-links {
+            margin-top: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .resource-links a {
+            color: var(--link-blue);
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+
+        .resource-links a:hover {
+            text-decoration: underline;
+        }
+
+        .me {
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* 博客技术栈标签 */
+        .tech-stack {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            background-color: #f8f9fa;
+            color: var(--text-muted);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* 响应式：手机端改为上下堆叠 */
+        @media (max-width: 768px) {
+            #home-page.active {
+                flex-direction: column;
+                text-align: left;
+                gap: 2rem;
+                margin-top: 5vh;
+            }
+            .profile-image img {
+                width: 200px;
+                height: 200px;
+            }
+            .profile-info h1 {
+                font-size: 2.8rem;
+            }
+            nav {
+                justify-content: center;
+                padding: 1.5rem;
+                gap: 1.2rem;
+                flex-wrap: wrap; /* 允许导航在小屏幕换行 */
+            }
+            .page-container {
+                padding: 0 1.5rem; /* 减小手机端左右边距，提升阅读面积 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏，始终可见 -->
+    <nav>
+        <a href="#home" class="nav-link" data-target="home">Home</a>
+        <a href="#publications" class="nav-link" data-target="publications">Publications</a>
+        <a href="#open-source" class="nav-link" data-target="open-source">Open Source</a>
+        <a href="#blog" class="nav-link" data-target="blog">Blog</a>
+    </nav>
+
+    <!-- 首页 (Profile) -->
+    <main id="home-page" class="page-container active">
+        <div class="profile-image">
+            <!-- 使用了一个高质量的占位人像，自动应用了黑白滤镜 -->
+            <img src="main.jpg" alt="Qingyu Yin">
+        </div>
+        <div class="profile-info">
+            <h1>Qingyu Yin</h1>
+            
+            <div class="info-block">
+                <p>PhD Student</p>
+                <p><a href="#" class="academic-link">Department of Computer Science</a></p>
+                <p><a href="#" class="academic-link">National University of Singapore (NUS)</a></p>
+            </div>
+
+            <div class="info-block">
+                <p>Previously: B.Eng/M.Sc, <a href="#" class="academic-link">Your Previous University</a></p>
+                <p><strong>Research Interests:</strong> artificial intelligence, large language models, and reinforcement learning</p>
+            </div>
+
+            <div class="bottom-links">
+                <a href="#publications">Publications</a>
+                <a href="#open-source">Open Source</a>
+                <a href="#blog">Blog</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+                <a href="#">E-mail</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 论文页 -->
+    <main id="publications-page" class="page-container">
+        <h2 class="subpage-title">Publications</h2>
+        
+        <div class="list-item">
+            <div class="list-item-title">A Comprehensive Benchmark of Parameter-Efficient Fine-Tuning Methods in RL Domains</div>
+            <div class="list-item-meta"><span class="me">Qingyu Yin</span>, Co-author Name, Another Author.</div>
+            <div class="list-item-meta"><em>In preparation, 2026</em></div>
+            <div class="resource-links">
+                <a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[BibTeX]</a>
+            </div>
+        </div>
+
+        <div class="list-item">
+            <div class="list-item-title">Another Awesome Paper Title Goes Here</div>
+            <div class="list-item-meta">First Author, <span class="me">Qingyu Yin</span>.</div>
+            <div class="list-item-meta"><em>International Conference on Machine Learning (ICML), 2025</em></div>
+            <div class="resource-links">
+                <a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 项目页 -> Open Source 页 -->
+    <main id="open-source-page" class="page-container">
+        <h2 class="subpage-title">Open Source</h2>
+        
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">Jym</a></div>
+            <div class="list-item-meta" style="color: var(--text-main);">An evaluation, environment, and production data tool for reinforcement learning agents.</div>
+            <div class="resource-links">
+                <a href="#">[GitHub Repository]</a> <a href="#">[Documentation]</a>
+            </div>
+        </div>
+
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">PeRL (Parameter-efficient RL)</a></div>
+            <div class="list-item-meta" style="color: var(--text-main);">A lightweight codebase and experimental framework for applying LoRA to RL algorithms.</div>
+            <div class="resource-links">
+                <a href="#">[GitHub Repository]</a>
+            </div>
+        </div>
+
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">slimulation</a></div>
+            <div class="list-item-meta" style="color: var(--text-main);">An experimental simulation environment combining physics constraints with agent learning.</div>
+            <div class="resource-links">
+                <a href="#">[GitHub Repository]</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 博客页 -->
+    <main id="blog-page" class="page-container">
+        <h2 class="subpage-title">Blog</h2>
+        
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">Understanding Natural Number Bias in LLMs</a></div>
+            <div class="list-item-meta">October 15, 2025</div>
+            <div class="tech-stack">
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">Transformers</span>
+                <span class="tech-tag">Evaluation</span>
+            </div>
+        </div>
+
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">The Evolution of TTS: From Phonetics to Human-like Synthesis</a></div>
+            <div class="list-item-meta">August 22, 2025</div>
+            <div class="tech-stack">
+                <span class="tech-tag">Speech Synthesis</span>
+                <span class="tech-tag">Deep Learning</span>
+            </div>
+        </div>
+        
+        <div class="list-item">
+            <div class="list-item-title"><a href="#">Setting up a Minimalist Academic Website</a></div>
+            <div class="list-item-meta">March 10, 2025</div>
+            <div class="tech-stack">
+                <span class="tech-tag">HTML/CSS</span>
+                <span class="tech-tag">Design</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- 简单的 JS 路由：处理页面切换 -->
+    <script>
+        function handleRouting() {
+            // 获取当前的 hash，如果没有则默认为 #home
+            let hash = window.location.hash || '#home';
+            let targetId = hash.replace('#', '') + '-page';
+            
+            // 隐藏所有页面
+            document.querySelectorAll('.page-container').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 移除所有导航栏的高亮
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // 显示目标页面
+            const targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                // 高亮当前导航
+                const activeNav = document.querySelector(`.nav-link[href="${hash}"]`);
+                if(activeNav) activeNav.classList.add('active');
+            } else {
+                // 如果 hash 不存在，退回 home
+                document.getElementById('home-page').classList.add('active');
+            }
+        }
+
+        // 监听 URL hash 变化 (例如点击链接或浏览器的前进/后退)
+        window.addEventListener('hashchange', handleRouting);
+        
+        // 页面首次加载时执行一次路由匹配
+        window.addEventListener('DOMContentLoaded', handleRouting);
+    </script>
+</body>
+</html>

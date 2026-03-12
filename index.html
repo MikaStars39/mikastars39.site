@@ -4,262 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qingyu Yin - Academic Profile</title>
-    <!-- 使用 Inter 字体还原干净清爽的无衬线视觉效果 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-main: #222222;
-            --text-muted: #666666;
-            --link-blue: #db2b1f; /* 还原原图中经典的低饱和度学术蓝 */
-            --link-hover: #3a536e;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* 顶部导航栏 (在子页面更明显) */
-        nav {
-            display: flex;
-            justify-content: flex-end;
-            padding: 2rem 4rem;
-            font-size: 0.95rem;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--text-main);
-        }
-
-        /* 页面容器 */
-        .page-container {
-            max-width: 900px;
-            margin: 5vh auto 10vh;
-            padding: 0 2rem;
-            display: none; /* 默认隐藏，由 JS 控制显示 */
-            animation: fadeIn 0.4s ease;
-        }
-
-        .page-container.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- 首页特定布局 (左右分栏) --- */
-        #home-page.active {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-            margin-top: 10vh;
-        }
-
-        .profile-image {
-            flex-shrink: 0;
-        }
-
-        .profile-image img {
-            width: 280px;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 20px;
-            filter: grayscale(100%); /* 照片黑白化，提升高级感 */
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-        }
-
-        .profile-info h1 {
-            font-weight: 300; /* 极细字体还原 Dan Fu 主页效果 */
-            font-size: 3.5rem;
-            margin: 0 0 1rem 0;
-            letter-spacing: -0.03em;
-            color: #111;
-        }
-
-        .profile-info p {
-            margin: 0.2rem 0;
-            font-size: 1.05rem;
-        }
-
-        .info-block {
-            margin-bottom: 1.5rem;
-        }
-
-        /* 蓝色学术链接 */
-        a.academic-link {
-            color: var(--link-blue);
-            text-decoration: underline;
-            text-decoration-color: transparent;
-            text-underline-offset: 3px;
-            transition: all 0.2s;
-        }
-
-        a.academic-link:hover {
-            color: var(--link-hover);
-            text-decoration-color: var(--link-hover);
-        }
-
-        /* 底部链接排布 */
-        .bottom-links {
-            margin-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .bottom-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .bottom-links a:hover {
-            opacity: 0.6;
-        }
-
-        /* --- 子页面通用样式 --- */
-        .subpage-title {
-            font-weight: 300;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .list-item {
-            margin-bottom: 1.8rem;
-        }
-
-        .list-item-title {
-            font-weight: 500;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .list-item-title a {
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
-        .list-item-title a:hover {
-            text-decoration: underline;
-        }
-
-        .list-item-meta {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .resource-links {
-            margin-top: 0.4rem;
-            font-size: 0.9rem;
-        }
-
-        .resource-links a {
-            color: var(--link-blue);
-            text-decoration: none;
-            margin-right: 1rem;
-        }
-
-        .resource-links a:hover {
-            text-decoration: underline;
-        }
-
-        .me {
-            font-weight: 600;
-            color: #000;
-        }
-
-        /* 博客技术栈标签 */
-        .tech-stack {
-            margin-top: 0.5rem;
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tech-tag {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            background-color: #f8f9fa;
-            color: var(--text-muted);
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
-
-        /* 响应式：手机端改为上下堆叠 */
-        @media (max-width: 768px) {
-            #home-page.active {
-                flex-direction: column;
-                text-align: left;
-                gap: 2rem;
-                margin-top: 5vh;
-            }
-            .profile-image img {
-                width: 200px;
-                height: 200px;
-            }
-            .profile-info h1 {
-                font-size: 2.8rem;
-            }
-            nav {
-                justify-content: center;
-                padding: 1.5rem;
-                gap: 1.2rem;
-                flex-wrap: wrap; /* 允许导航在小屏幕换行 */
-            }
-            .page-container {
-                padding: 0 1.5rem; /* 减小手机端左右边距，提升阅读面积 */
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <!-- Apply saved theme before first paint to prevent flash -->
+    <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
 
-    <!-- 顶部导航栏，始终可见 -->
+    <!-- Full-viewport grain texture -->
+    <canvas id="grain-overlay"></canvas>
+
     <nav>
-        <a href="#home" class="nav-link" data-target="home">Home</a>
-        <a href="#publications" class="nav-link" data-target="publications">Publications</a>
-        <a href="#open-source" class="nav-link" data-target="open-source">Open Source</a>
-        <a href="#blog" class="nav-link" data-target="blog">Blog</a>
+        <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme"></button>
+        <div class="nav-links">
+            <a href="#home" class="nav-link" data-target="home">Home</a>
+            <a href="#publications" class="nav-link" data-target="publications">Publications</a>
+            <a href="#docs" class="nav-link" data-target="docs">Mika Doc</a>
+        </div>
     </nav>
 
-    <!-- 首页 (Profile) -->
+    <!-- Home -->
     <main id="home-page" class="page-container active">
         <div class="profile-image">
-            <!-- 使用了一个高质量的占位人像，自动应用了黑白滤镜 -->
-            <img src="assets/main.jpg" alt="Qingyu Yin">
+            <img id="profile-img" src="assets/main.jpg" alt="Qingyu Yin">
+            <canvas id="thermal-canvas" style="display:none;"></canvas>
         </div>
         <div class="profile-info">
             <h1>Qingyu Yin</h1>
-            
+
             <div class="info-block">
-                <p>Bachelor Student, <a href="#" class="academic-link">CS / English, Zhejiang University</a> </p>
+                <p>Bachelor Student, <a href="#" class="academic-link">CS / English, Zhejiang University</a></p>
             </div>
 
             <div class="info-block">
                 <p>Currently: JDY Intern <a href="#" class="academic-link">JoyAI, JD.com</a></p>
                 <p>Previously: Ace Toptalent Intern <a href="#" class="academic-link">Hi Lab, Rednote (Xiaohongshu)</a></p>
-                <p><strong>Scaling Foundation Model for OSS</strong></p>
+                <p><span class="highlight-tag">Scaling Foundation Model for OSS</span></p>
             </div>
 
             <div class="bottom-links">
@@ -271,9 +57,10 @@
         </div>
     </main>
 
-<main id="publications-page" class="page-container">
+    <!-- Publications -->
+    <main id="publications-page" class="page-container">
         <h2 class="subpage-title">Publications</h2>
-        
+
         <h3 style="font-weight: 400; font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--text-main);">Selected Publications</h3>
 
         <div class="list-item">
@@ -309,14 +96,12 @@
             </div>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0 2rem 0;">
+        <hr class="thermal-divider">
 
         <details>
-            <summary style="cursor: pointer; font-size: 1.1rem; color: var(--text-muted); outline: none; margin-bottom: 1rem;">
-                See Other Publications (Co-authored)
-            </summary>
-            <div style="margin-top: 1.5rem; padding-left: 0.5rem; border-left: 2px solid #f8f9fa;">
-                
+            <summary>See Other Publications (Co-authored)</summary>
+            <div class="details-inner">
+
                 <div class="list-item">
                     <div class="list-item-title">MagicInfinite: Generating Infinite Talking Videos with Your Words and Voice</div>
                     <div class="list-item-meta">Terrance Wang, <span class="me">Qingyu Yin</span>, Zeke Xie, Lei Zhu.</div>
@@ -356,13 +141,13 @@
         </details>
     </main>
 
-    <!-- 项目页 -> Open Source 页 -->
+    <!-- Open Source -->
     <main id="open-source-page" class="page-container">
         <h2 class="subpage-title">Open Source</h2>
-        
+
         <div class="list-item">
             <div class="list-item-title"><a href="#">Jym</a></div>
-            <div class="list-item-meta" style="color: var(--text-main);">An evaluation, environment, and production data tool for reinforcement learning agents.</div>
+            <div class="list-item-meta">An evaluation, environment, and production data tool for reinforcement learning agents.</div>
             <div class="resource-links">
                 <a href="#">[GitHub Repository]</a> <a href="#">[Documentation]</a>
             </div>
@@ -370,7 +155,7 @@
 
         <div class="list-item">
             <div class="list-item-title"><a href="#">PeRL (Parameter-efficient RL)</a></div>
-            <div class="list-item-meta" style="color: var(--text-main);">A lightweight codebase and experimental framework for applying LoRA to RL algorithms.</div>
+            <div class="list-item-meta">A lightweight codebase and experimental framework for applying LoRA to RL algorithms.</div>
             <div class="resource-links">
                 <a href="#">[GitHub Repository]</a>
             </div>
@@ -378,81 +163,26 @@
 
         <div class="list-item">
             <div class="list-item-title"><a href="#">slimulation</a></div>
-            <div class="list-item-meta" style="color: var(--text-main);">An experimental simulation environment combining physics constraints with agent learning.</div>
+            <div class="list-item-meta">An experimental simulation environment combining physics constraints with agent learning.</div>
             <div class="resource-links">
                 <a href="#">[GitHub Repository]</a>
             </div>
         </div>
     </main>
 
-    <!-- 博客页 -->
-    <main id="blog-page" class="page-container">
-        <h2 class="subpage-title">Blog</h2>
-        
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">Understanding Natural Number Bias in LLMs</a></div>
-            <div class="list-item-meta">October 15, 2025</div>
-            <div class="tech-stack">
-                <span class="tech-tag">PyTorch</span>
-                <span class="tech-tag">Transformers</span>
-                <span class="tech-tag">Evaluation</span>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">The Evolution of TTS: From Phonetics to Human-like Synthesis</a></div>
-            <div class="list-item-meta">August 22, 2025</div>
-            <div class="tech-stack">
-                <span class="tech-tag">Speech Synthesis</span>
-                <span class="tech-tag">Deep Learning</span>
-            </div>
-        </div>
-        
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">Setting up a Minimalist Academic Website</a></div>
-            <div class="list-item-meta">March 10, 2025</div>
-            <div class="tech-stack">
-                <span class="tech-tag">HTML/CSS</span>
-                <span class="tech-tag">Design</span>
-            </div>
+    <!-- Mika Doc -->
+    <main id="docs-page" class="page-container">
+        <div class="docs-layout">
+            <aside class="docs-sidebar">
+                <div id="docs-list"><!-- JS 填充 --></div>
+            </aside>
+            <article class="docs-content">
+                <div id="docs-toolbar"></div>
+                <div id="docs-body"></div>
+            </article>
         </div>
     </main>
 
-    <!-- 简单的 JS 路由：处理页面切换 -->
-    <script>
-        function handleRouting() {
-            // 获取当前的 hash，如果没有则默认为 #home
-            let hash = window.location.hash || '#home';
-            let targetId = hash.replace('#', '') + '-page';
-            
-            // 隐藏所有页面
-            document.querySelectorAll('.page-container').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // 移除所有导航栏的高亮
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // 显示目标页面
-            const targetPage = document.getElementById(targetId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                // 高亮当前导航
-                const activeNav = document.querySelector(`.nav-link[href="${hash}"]`);
-                if(activeNav) activeNav.classList.add('active');
-            } else {
-                // 如果 hash 不存在，退回 home
-                document.getElementById('home-page').classList.add('active');
-            }
-        }
-
-        // 监听 URL hash 变化 (例如点击链接或浏览器的前进/后退)
-        window.addEventListener('hashchange', handleRouting);
-        
-        // 页面首次加载时执行一次路由匹配
-        window.addEventListener('DOMContentLoaded', handleRouting);
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

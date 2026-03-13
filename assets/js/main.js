@@ -223,9 +223,35 @@
             });
         }
 
+        function renderCollapseBtn(toolbar) {
+            var layout = document.querySelector('.docs-layout');
+            var btn = document.createElement('button');
+            btn.className = 'docs-collapse-btn';
+            var collapsed = layout && layout.classList.contains('sidebar-collapsed');
+            btn.innerHTML = collapsed
+                ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg> Show Sidebar'
+                : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Hide Sidebar';
+            btn.onclick = function() {
+                if (layout) {
+                    layout.classList.toggle('sidebar-collapsed');
+                    var nowCollapsed = layout.classList.contains('sidebar-collapsed');
+                    btn.innerHTML = nowCollapsed
+                        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg> Show Sidebar'
+                        : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Hide Sidebar';
+                }
+            };
+            toolbar.appendChild(btn);
+        }
+
         function renderToolbar(path) {
             var toolbar = document.getElementById('docs-toolbar');
             toolbar.innerHTML = '';
+            toolbar.classList.remove('welcome-mode');
+
+            renderCollapseBtn(toolbar);
+
+            var actions = document.createElement('div');
+            actions.className = 'docs-toolbar-actions';
 
             var copyBtn = document.createElement('button');
             copyBtn.className = 'docs-toolbar-btn';
@@ -244,19 +270,24 @@
             sourceLink.rel = 'noopener';
             sourceLink.textContent = 'View Source';
 
-            toolbar.appendChild(copyBtn);
-            toolbar.appendChild(sourceLink);
+            actions.appendChild(copyBtn);
+            actions.appendChild(sourceLink);
+            toolbar.appendChild(actions);
         }
 
         function showDocsWelcome(files) {
-            document.getElementById('docs-toolbar').innerHTML = '';
+            var toolbar = document.getElementById('docs-toolbar');
+            toolbar.innerHTML = '';
+            toolbar.classList.add('welcome-mode');
+            renderCollapseBtn(toolbar);
+
             var quickLinks = files.slice(0, 5).map(function(f) {
                 return '<a class="docs-welcome-link" href="#docs/' + encodeURIComponent(f.path) + '">→ ' + f.title + '</a>';
             }).join('');
             document.getElementById('docs-body').innerHTML =
                 '<div class="docs-welcome">' +
-                '<h2>Welcome to Mika Doc</h2>' +
-                '<p>Notes, ideas, and writings. Select a document from the sidebar to get started.</p>' +
+                '<h2>Mika\'s Knowledge Base</h2>' +
+                '<p>A collection of notes on machine learning, systems, and ideas. Select a topic from the sidebar to explore.</p>' +
                 '<div class="docs-welcome-links">' + quickLinks + '</div>' +
                 '</div>';
         }

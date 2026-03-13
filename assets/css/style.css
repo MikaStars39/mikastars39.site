@@ -330,7 +330,9 @@ hr.thermal-divider {
 .docs-welcome {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
+    text-align: center;
     min-height: 60vh;
     padding: 3rem 0;
 }
@@ -354,6 +356,7 @@ hr.thermal-divider {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .docs-welcome-link {
@@ -461,11 +464,51 @@ hr.thermal-divider {
 #docs-toolbar {
     display: flex;
     gap: 0.5rem;
-    justify-content: flex-end;
+    align-items: center;
     margin-bottom: 1.25rem;
     padding-bottom: 0.875rem;
     border-bottom: 1px solid var(--border);
     min-height: 1rem;
+}
+
+#docs-toolbar.welcome-mode {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    min-height: 0;
+}
+
+.docs-toolbar-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+/* Sidebar collapse button */
+.docs-collapse-btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.28rem 0.7rem;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.docs-collapse-btn:hover {
+    color: var(--text);
+    border-color: var(--text-muted);
+}
+
+.docs-layout.sidebar-collapsed .docs-sidebar {
+    display: none;
 }
 
 .docs-toolbar-btn {

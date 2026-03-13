@@ -317,3 +317,36 @@
 
         window.addEventListener('hashchange', handleRouting);
         window.addEventListener('DOMContentLoaded', handleRouting);
+
+        // ====== 5. Mobile sidebar toggle ======
+        (function() {
+            var toggle = document.getElementById('docs-sidebar-toggle');
+            var sidebar = document.querySelector('.docs-sidebar');
+            var overlay = document.getElementById('docs-sidebar-overlay');
+            if (!toggle || !sidebar || !overlay) return;
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('open');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+            }
+
+            toggle.addEventListener('click', function() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+
+            overlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar when a doc link is clicked (mobile)
+            sidebar.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') closeSidebar();
+            });
+        })();

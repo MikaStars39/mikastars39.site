@@ -511,6 +511,10 @@ hr.thermal-divider {
     display: none;
 }
 
+.docs-layout.sidebar-collapsed {
+    margin-left: 0;
+}
+
 .docs-toolbar-btn {
     font-family: inherit;
     font-size: 0.8rem;
@@ -619,7 +623,8 @@ hr.thermal-divider {
 /* ====== Mobile ====== */
 @media (max-width: 768px) {
     nav { padding: 0 1.25rem; }
-    .nav-links { gap: 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    nav a { font-size: 0.875rem; }
 
     #home-page.active {
         flex-direction: column;
@@ -635,6 +640,7 @@ hr.thermal-divider {
     }
 
     .profile-info h1 { font-size: 1.8rem; }
+    .profile-info p { font-size: 0.95rem; }
 
     .page-container { padding: 2rem 1.25rem 4rem; }
 
@@ -642,6 +648,9 @@ hr.thermal-divider {
 
     /* -- Docs layout on mobile -- */
     .docs-layout { flex-direction: column; margin-left: 0; }
+
+    /* Hide desktop collapse button on mobile — drawer is used instead */
+    .docs-collapse-btn { display: none; }
 
     /* Toggle button */
     .docs-sidebar-toggle {
@@ -739,7 +748,10 @@ hr.thermal-divider {
 
 @media (max-width: 480px) {
     .nav-brand { font-size: 0.875rem; }
-    .nav-links { gap: 1rem; font-size: 0.875rem; }
+    .nav-links { gap: 0.875rem; font-size: 0.8rem; }
     .profile-info h1 { font-size: 1.5rem; }
     .bottom-links { gap: 0.875rem; }
+
+    .docs-welcome h2 { font-size: 1.5rem; }
+    .docs-welcome p { font-size: 0.9rem; }
 }

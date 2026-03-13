@@ -1,8 +1,8 @@
 /* ====== Design Tokens ====== */
 :root {
-    --bg:          #ffffff;
-    --bg-subtle:   #f9fafb;
-    --bg-surface:  #f3f4f6;
+    --bg:          #faf9f5;
+    --bg-subtle:   #f3f2ec;
+    --bg-surface:  #ece9e0;
     --text:        #111827;
     --text-muted:  #6b7280;
     --text-light:  #9ca3af;
@@ -138,7 +138,7 @@ nav a.active {
     justify-content: center;
     gap: 3.5rem;
     min-height: calc(100vh - 56px);
-    padding: 0 2rem 10vh;
+    padding: 0 2rem 28vh;
     max-width: 100%;
     margin: 0;
 }
@@ -161,7 +161,7 @@ nav a.active {
 .profile-image::after { display: none; }
 
 .profile-info h1 {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     font-weight: 600;
     letter-spacing: -0.03em;
     color: var(--text);
@@ -170,7 +170,7 @@ nav a.active {
 
 .profile-info p {
     margin: 0.25rem 0;
-    font-size: 0.975rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
 }
 
@@ -324,6 +324,54 @@ hr.thermal-divider {
     margin-top: 1.25rem;
     padding-left: 1rem;
     border-left: 2px solid var(--border);
+}
+
+/* ====== Docs welcome screen ====== */
+.docs-welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 3rem 0;
+}
+
+.docs-welcome h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.docs-welcome p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 420px;
+}
+
+.docs-welcome-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.docs-welcome-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+    width: fit-content;
+}
+
+.docs-welcome-link:hover {
+    color: var(--accent);
+    background: var(--bg-subtle);
 }
 
 /* ====== Mika Doc ====== */
@@ -534,7 +582,7 @@ hr.thermal-divider {
         flex-direction: column;
         gap: 2rem;
         min-height: auto;
-        padding: 3rem 1.25rem;
+        padding: 2.5rem 1.25rem 5rem;
     }
 
     .profile-image canvas,

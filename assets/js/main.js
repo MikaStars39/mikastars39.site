@@ -248,6 +248,19 @@
             toolbar.appendChild(sourceLink);
         }
 
+        function showDocsWelcome(files) {
+            document.getElementById('docs-toolbar').innerHTML = '';
+            var quickLinks = files.slice(0, 5).map(function(f) {
+                return '<a class="docs-welcome-link" href="#docs/' + encodeURIComponent(f.path) + '">→ ' + f.title + '</a>';
+            }).join('');
+            document.getElementById('docs-body').innerHTML =
+                '<div class="docs-welcome">' +
+                '<h2>Welcome to Mika Doc</h2>' +
+                '<p>Notes, ideas, and writings. Select a document from the sidebar to get started.</p>' +
+                '<div class="docs-welcome-links">' + quickLinks + '</div>' +
+                '</div>';
+        }
+
         function loadDocsList() {
             fetch('docs/manifest.json')
                 .then(function(r) { return r.json(); })
@@ -280,8 +293,8 @@
                     var hash = window.location.hash;
                     if (hash.startsWith('#docs/')) {
                         loadDoc(decodeURIComponent(hash.slice(6)), list.querySelectorAll('a'));
-                    } else if (files.length > 0) {
-                        loadDoc(files[0].path, list.querySelectorAll('a'));
+                    } else {
+                        showDocsWelcome(files);
                     }
                 })
                 .catch(function() {

@@ -81,12 +81,14 @@ server {
 }
 EOF
 
-# 启用站点
+# 清理所有已启用的站点配置（避免 server_name 冲突）
+rm -f /etc/nginx/sites-enabled/*
+# 启用本站点
 ln -sf "${NGINX_CONF}" /etc/nginx/sites-enabled/
-rm -f /etc/nginx/sites-enabled/default  # 移除默认占位配置
 
 nginx -t || error "nginx 配置有误，请检查 ${NGINX_CONF}"
-systemctl reload nginx
+# nginx 可能还没启动，用 restart 兼容两种情况
+systemctl restart nginx
 info "nginx 配置完成（HTTP）"
 
 # ============================================================

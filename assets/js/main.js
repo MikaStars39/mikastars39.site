@@ -362,6 +362,28 @@
         window.addEventListener('hashchange', handleRouting);
         window.addEventListener('DOMContentLoaded', handleRouting);
 
+        // ====== 6. Nav hamburger menu toggle ======
+        (function() {
+            var toggle = document.getElementById('nav-menu-toggle');
+            var links  = document.getElementById('nav-links');
+            if (!toggle || !links) return;
+
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                links.classList.toggle('open');
+            });
+
+            // Close when clicking a nav link
+            links.addEventListener('click', function() {
+                links.classList.remove('open');
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', function() {
+                links.classList.remove('open');
+            });
+        })();
+
         // ====== 5. Mobile sidebar toggle ======
         (function() {
             var toggle = document.getElementById('docs-sidebar-toggle');

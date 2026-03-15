@@ -38,8 +38,9 @@ apt-get install -y -qq nginx git certbot python3-certbot-nginx
 # 2. Clone 或更新代码
 # ============================================================
 if [ -d "${WEBROOT}/.git" ]; then
-    info "仓库已存在，执行 git pull..."
-    git -C "${WEBROOT}" pull --ff-only
+    info "仓库已存在，强制同步远端..."
+    git -C "${WEBROOT}" fetch origin
+    git -C "${WEBROOT}" reset --hard origin/main
 else
     info "克隆仓库到 ${WEBROOT}..."
     git clone "${REPO}" "${WEBROOT}"

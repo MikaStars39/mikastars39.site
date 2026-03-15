@@ -80,7 +80,7 @@ nav {
 
 .theme-toggle, .nav-menu-toggle {
     background: none;
-    border: 1px solid var(--border);
+    border: none;
     border-radius: 6px;
     width: 32px;
     height: 32px;
@@ -89,13 +89,13 @@ nav {
     justify-content: center;
     cursor: pointer;
     color: var(--text-muted);
-    transition: color 0.15s, border-color 0.15s;
+    transition: color 0.15s, background 0.15s;
     flex-shrink: 0;
 }
 
 .theme-toggle:hover, .nav-menu-toggle:hover {
     color: var(--text);
-    border-color: var(--text-muted);
+    background: var(--bg-subtle);
 }
 
 .nav-links {

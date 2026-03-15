@@ -172,6 +172,12 @@
             } else {
                 document.getElementById('home-page').classList.add('active');
             }
+
+            // Show sidebar toggle only on docs page
+            var sidebarBtn = document.getElementById('docs-sidebar-toggle');
+            if (sidebarBtn) {
+                sidebarBtn.style.display = (pageHash === '#docs') ? 'flex' : 'none';
+            }
         }
 
         // ====== 4. Mika Doc ======
@@ -362,31 +368,9 @@
         window.addEventListener('hashchange', handleRouting);
         window.addEventListener('DOMContentLoaded', handleRouting);
 
-        // ====== 6. Nav hamburger menu toggle ======
+        // ====== 5. Sidebar toggle (nav button) ======
         (function() {
-            var toggle = document.getElementById('nav-menu-toggle');
-            var links  = document.getElementById('nav-links');
-            if (!toggle || !links) return;
-
-            toggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                links.classList.toggle('open');
-            });
-
-            // Close when clicking a nav link
-            links.addEventListener('click', function() {
-                links.classList.remove('open');
-            });
-
-            // Close when clicking outside
-            document.addEventListener('click', function() {
-                links.classList.remove('open');
-            });
-        })();
-
-        // ====== 5. Mobile sidebar toggle ======
-        (function() {
-            var toggle = document.getElementById('docs-sidebar-toggle');
+            var toggle  = document.getElementById('docs-sidebar-toggle');
             var sidebar = document.querySelector('.docs-sidebar');
             var overlay = document.getElementById('docs-sidebar-overlay');
             if (!toggle || !sidebar || !overlay) return;
@@ -402,16 +386,19 @@
             }
 
             toggle.addEventListener('click', function() {
-                if (sidebar.classList.contains('open')) {
-                    closeSidebar();
+                if (window.innerWidth <= 768) {
+                    // Mobile: slide-in drawer
+                    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
                 } else {
-                    openSidebar();
+                    // Desktop: collapse / expand sidebar in layout
+                    var layout = document.querySelector('.docs-layout');
+                    if (layout) layout.classList.toggle('sidebar-collapsed');
                 }
             });
 
             overlay.addEventListener('click', closeSidebar);
 
-            // Close sidebar when a doc link is clicked (mobile)
+            // Close drawer when a doc link is clicked on mobile
             sidebar.addEventListener('click', function(e) {
                 if (e.target.tagName === 'A') closeSidebar();
             });

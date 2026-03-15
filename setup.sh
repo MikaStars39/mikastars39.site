@@ -11,7 +11,7 @@ WWW_DOMAIN="www.mikastars39.site"
 REPO="https://github.com/MikaStars39/mikastars39.site"
 WEBROOT="/var/www/${DOMAIN}"
 NGINX_CONF="/etc/nginx/sites-available/${DOMAIN}"
-EMAIL=""   # ← 填入你的邮箱，用于 Let's Encrypt 证书到期提醒
+EMAIL="meloxdmy@qq.com"
 
 # ---------- 颜色输出 ----------
 GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'

@@ -496,35 +496,8 @@ hr.thermal-divider {
     flex: 1;
 }
 
-/* Sidebar collapse button */
-.docs-collapse-btn {
-    font-family: inherit;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 0.28rem 0.7rem;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    flex-shrink: 0;
-}
-
-.docs-collapse-btn:hover {
-    color: var(--text);
-    border-color: var(--text-muted);
-}
-
-.docs-layout.sidebar-collapsed .docs-sidebar {
-    display: none;
-}
-
-.docs-layout.sidebar-collapsed {
-    margin-left: 0;
-}
+.docs-layout.sidebar-collapsed .docs-sidebar { display: none; }
+.docs-layout.sidebar-collapsed { margin-left: 0; }
 
 .docs-toolbar-btn {
     font-family: inherit;
@@ -664,9 +637,6 @@ hr.thermal-divider {
 
     /* -- Docs layout on mobile -- */
     .docs-layout { flex-direction: column; margin-left: 0; }
-
-    /* Hide desktop collapse button on mobile — nav hamburger is used instead */
-    .docs-collapse-btn { display: none; }
 
     /* Overlay backdrop */
     .docs-sidebar-overlay {

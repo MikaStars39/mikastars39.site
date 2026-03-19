@@ -223,6 +223,8 @@ a.academic-link:hover {
     flex-wrap: wrap;
     gap: 1.25rem;
     font-size: 0.875rem;
+    width: 100%;
+    justify-content: center;
 }
 
 .bottom-links a {
@@ -237,9 +239,8 @@ a.academic-link:hover {
 
 /* ====== Publications collapsible on home page ====== */
 .publications-collapsible {
-    margin-top: 2.5rem;
-    border-top: 1px solid var(--border);
-    padding-top: 1.25rem;
+    margin-top: 2rem;
+    width: 100%;
 }
 
 .publications-collapsible > summary {
@@ -248,6 +249,12 @@ a.academic-link:hover {
     color: var(--text);
     padding: 0.25rem 0;
     margin-bottom: 0;
+    text-align: center;
+    list-style: none;
+}
+
+.publications-collapsible > summary::-webkit-details-marker {
+    display: none;
 }
 
 .publications-collapsible[open] > summary {

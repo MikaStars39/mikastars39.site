@@ -144,14 +144,17 @@ nav a.active {
 
 /* ====== Home page ====== */
 #home-page.active {
+    display: block;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+}
+
+.profile-section {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 3.5rem;
-    min-height: calc(100vh - 56px);
-    padding: 0 2rem 28vh;
-    max-width: 100%;
-    margin: 0;
+    margin-bottom: 1.5rem;
 }
 
 .profile-image {
@@ -226,6 +229,29 @@ a.academic-link:hover {
 
 .bottom-links a:hover {
     color: var(--accent);
+}
+
+/* ====== Publications collapsible on home page ====== */
+.publications-collapsible {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+}
+
+.publications-collapsible > summary {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+    padding: 0.25rem 0;
+    margin-bottom: 0;
+}
+
+.publications-collapsible[open] > summary {
+    margin-bottom: 1.5rem;
+}
+
+.publications-content {
+    padding-top: 0.25rem;
 }
 
 /* ====== Subpage styles ====== */
@@ -616,10 +642,13 @@ hr.thermal-divider {
     .nav-links { left: 1.25rem; }
 
     #home-page.active {
+        padding: 2.5rem 1.25rem 5rem;
+    }
+
+    .profile-section {
         flex-direction: column;
         gap: 2rem;
-        min-height: auto;
-        padding: 2.5rem 1.25rem 5rem;
+        align-items: flex-start;
     }
 
     .profile-image canvas,

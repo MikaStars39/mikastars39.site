@@ -149,7 +149,7 @@ nav a.active {
     align-items: stretch;
     max-width: 860px;
     margin: 0 auto;
-    padding: 5rem 2rem 6rem;
+    padding: 8rem 2rem 6rem;
 }
 
 .profile-section {
@@ -218,12 +218,12 @@ a.academic-link:hover {
 }
 
 .bottom-links {
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1.25rem;
     font-size: 0.875rem;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .bottom-links a {
@@ -249,10 +249,14 @@ a.academic-link:hover {
     color: var(--text-muted);
     padding: 0.25rem 0;
     margin-bottom: 0;
-    text-align: center;
+    text-align: left;
     list-style: none;
     border: none;
     outline: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
 }
 
 .publications-collapsible > summary::-webkit-details-marker {
@@ -262,6 +266,17 @@ a.academic-link:hover {
 .publications-collapsible > summary::marker {
     display: none;
     content: '';
+}
+
+.publications-collapsible > summary::before {
+    content: '▶';
+    font-size: 0.6rem;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+}
+
+.publications-collapsible[open] > summary::before {
+    transform: rotate(90deg);
 }
 
 .publications-collapsible[open] > summary {

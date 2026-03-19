@@ -149,7 +149,7 @@ nav a.active {
     align-items: stretch;
     max-width: 860px;
     margin: 0 auto;
-    padding: 8rem 2rem 6rem;
+    padding: 5rem 2rem 6rem;
 }
 
 .profile-section {
@@ -157,7 +157,7 @@ nav a.active {
     flex-direction: row;
     align-items: center;
     gap: 3.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     width: 100%;
 }
 
@@ -221,15 +221,17 @@ a.academic-link:hover {
     margin-top: 0.5rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 1.25rem;
+    gap: 0;
     font-size: 0.875rem;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 }
 
 .bottom-links a {
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.15s;
+    padding: 0 0.75rem;
 }
 
 .bottom-links a:hover {
@@ -314,6 +316,13 @@ a.academic-link:hover {
     font-size: 0.975rem;
     margin-bottom: 0.25rem;
     color: var(--text);
+}
+
+.venue-tag {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 0.4rem;
 }
 
 .list-item-title a {

@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qingyu Yin - Academic Profile</title>
+    <title>Qingyu Yin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/style.css?v=20260316">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-    <!-- Apply saved theme before first paint to prevent flash -->
+    <link rel="stylesheet" href="assets/css/style.css?v=20260513h">
     <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
 
-    <!-- Full-viewport grain texture -->
-    <canvas id="grain-overlay"></canvas>
+    <canvas id="snake-bg" data-liquid-ignore></canvas>
 
     <nav>
         <div class="nav-left">
-            <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme"></button>
-            <button id="docs-sidebar-toggle" class="nav-sidebar-toggle" aria-label="Toggle sidebar">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            </button>
+            <div class="glass-wrap glass-wrap-circle">
+                <div class="glass-target"></div>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme"></button>
+            </div>
         </div>
-        <div class="nav-links">
-            <a href="#home" class="nav-link" data-target="home">Home</a>
-            <a href="#docs" class="nav-link" data-target="docs">Mika Doc</a>
+        <div class="nav-right">
+            <div class="glass-wrap">
+                <div class="glass-target"></div>
+                <a href="qingyu_cv_4.html" class="nav-cv">CV</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Home -->
     <main id="home-page" class="page-container active">
         <div class="profile-section">
             <div class="profile-image">
                 <img id="profile-img" src="assets/main.jpg" alt="Qingyu Yin">
-                <canvas id="thermal-canvas" style="display:none;"></canvas>
             </div>
             <div class="profile-info">
                 <h1>Qingyu Yin</h1>
@@ -48,118 +43,27 @@
                 </div>
 
                 <div class="info-block">
-                    <p>Currently: JDY Intern <a href="#" class="academic-link">JoyAI, JD.com</a></p>
-                    <p>Previously: Ace Toptalent Intern <a href="#" class="academic-link">Hi Lab, Rednote (Xiaohongshu)</a></p>
+                    <p>Currently: MiniMax Post-Train Team</p>
                     <p><span class="highlight-tag">Scaling Foundation Model for OSS</span></p>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-links">
-            <a href="https://huggingface.co/MikaStars39">Huggingface</a>
-            <a href="https://scholar.google.com/citations?user=BRsj8FAAAAAJ&hl=zh-CN">Google Scholar</a>
-            <a href="https://github.com/MikaStars39">GitHub</a>
-            <a href="https://x.com/MikaStars39">X (Twitter)</a>
-            <a href="https://www.zhihu.com/people/manimani-47">Zhihu</a>
-            <a href="mailto:meloxdmy@qq.com">Email</a>
-        </div>
-
-        <details class="publications-collapsible">
-            <summary>Click here to see his publication list.</summary>
-            <div class="publications-content">
-                <div class="list-item">
-                    <div class="list-item-title">StableMask: Refining Causal Masking in Decoder-only Transformer<span class="venue-tag">ICML'24</span></div>
-                    <div class="list-item-meta"><span class="me">Qingyu Yin</span>, Xuzheng He, Zhuang Zhuang, Yu Zhao, Jianhua Yao, Xiaoyu Shen, Qiang Zhang.</div>
-                    <div class="resource-links">
-                        <a href="#">[ArXiv]</a> <a href="#">[Code]</a>
-                    </div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">Constrain Alignment with Sparse Autoencoders<span class="venue-tag">ICML'25</span></div>
-                    <div class="list-item-meta"><span class="me">Qingyu Yin*</span>, Chak Tou Leong*, Hongbo Zhang, Minjun Zhu, Hanqi Yan, Qiang Zhang, Yulan He, Wenjie Li, Jun Wang, Yue Zhang, Linyi Yang</div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">Evaluating Parameter Efficient Methods for RLVR<span class="venue-tag">Preprint</span></div>
-                    <div class="list-item-meta"><span class="me">Qingyu Yin*</span>, Yulun Wu*, Zhennan Shen*, Sunbowen Li, Zhilin Wang, Yanshu Li, Chak Tou Leong, Jiale Kang, Jinjin Gu</div>
-                    <div class="resource-links">
-                        <a href="#">[ArXiv]</a> <a href="#">[Code]</a>
-                    </div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">Deeper Insights Without Updates: The Power of In-Context Learning Over Fine-Tuning<span class="venue-tag">EMNLP'24 Findings</span></div>
-                    <div class="list-item-meta"><span class="me">Qingyu Yin</span>, Xuzheng He, Luoao Deng, Chak Tou Leong, Fan Wang, Yanzhao Yan, Xiaoyu Shen, Qiang Zhang.</div>
-                    <div class="resource-links">
-                        <a href="#">[ArXiv]</a> <a href="#">[Code]</a>
-                    </div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">ModRWKV: Transformer Multimodality in Linear Time<span class="venue-tag">EMNLP'25 Oral</span></div>
-                    <div class="list-item-meta">Jiale Kang*, Ziyin Yue*, <span class="me">Qingyu Yin*</span>, Jiang Rui, Weile Li, Zening Lu, Zhouran Ji.</div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">Refusal Falls off a Cliff: How Safety Alignment Fails in Reasoning?<span class="venue-tag">Preprint'25</span></div>
-                    <div class="list-item-meta"><span class="me">Qingyu Yin*</span>, Chak Tou Leong*, Linyi Yang, Wenxuan Huang, Wenjie Li, Xiting Wang, Jaehong Yoon, Jinjin Gu.</div>
-                    <div class="resource-links">
-                        <a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[BibTeX]</a>
-                    </div>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-item-title">Balancing LoRA Performance and Efficiency with Simple Shard Sharing<span class="venue-tag">ICLR'26</span></div>
-                    <div class="list-item-meta">Jiale Kang, <span class="me">Qingyu Yin</span>.</div>
-                </div>
-            </div>
-        </details>
-    </main>
-
-    <!-- Open Source -->
-    <main id="open-source-page" class="page-container">
-        <h2 class="subpage-title">Open Source</h2>
-
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">Jym</a></div>
-            <div class="list-item-meta">An evaluation, environment, and production data tool for reinforcement learning agents.</div>
-            <div class="resource-links">
-                <a href="#">[GitHub Repository]</a> <a href="#">[Documentation]</a>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">PeRL (Parameter-efficient RL)</a></div>
-            <div class="list-item-meta">A lightweight codebase and experimental framework for applying LoRA to RL algorithms.</div>
-            <div class="resource-links">
-                <a href="#">[GitHub Repository]</a>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div class="list-item-title"><a href="#">slimulation</a></div>
-            <div class="list-item-meta">An experimental simulation environment combining physics constraints with agent learning.</div>
-            <div class="resource-links">
-                <a href="#">[GitHub Repository]</a>
+        <div class="glass-wrap glass-wrap-links">
+            <div class="glass-target"></div>
+            <div class="bottom-links">
+                <a href="https://huggingface.co/MikaStars39">Huggingface</a>
+                <a href="https://scholar.google.com/citations?user=BRsj8FAAAAAJ&hl=zh-CN">Google Scholar</a>
+                <a href="https://github.com/MikaStars39">GitHub</a>
+                <a href="https://x.com/MikaStars39">X (Twitter)</a>
+                <a href="https://www.zhihu.com/people/manimani-47">Zhihu</a>
+                <a href="mailto:meloxdmy@qq.com">Email</a>
             </div>
         </div>
     </main>
 
-    <!-- Mika Doc -->
-    <main id="docs-page" class="page-container">
-        <div class="docs-layout">
-            <div id="docs-sidebar-overlay" class="docs-sidebar-overlay"></div>
-            <aside class="docs-sidebar">
-                <div id="docs-list"><!-- JS 填充 --></div>
-            </aside>
-            <article class="docs-content">
-                <div id="docs-toolbar"></div>
-                <div id="docs-body"></div>
-            </article>
-        </div>
-    </main>
-
-    <script src="assets/js/main.js?v=20260316"></script>
+    <script src="assets/js/html2canvas.min.js"></script>
+    <script src="assets/js/liquidGL.js"></script>
+    <script src="assets/js/main.js?v=20260513h"></script>
 </body>
 </html>

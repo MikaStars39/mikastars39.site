@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Qingyu Yin — Curriculum Vitae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #444;
+    --ink-faint: #888;
+    --accent: #0d5c47;
+    --accent-soft: #e8f0ec;
+    --highlight: #fff4d6;
+    --rule: #d8d6cf;
+    --paper: #fafaf7;
+    --sans: 'Inter Tight', -apple-system, sans-serif;
+    --serif: 'Newsreader', Georgia, serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 15px; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 64px 96px;
+  }
+
+  /* ─── Header ─────────────────────────────────── */
+  header {
+    margin-bottom: 56px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+
+  .contact {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    align-items: center;
+  }
+
+  .contact a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: all 0.15s ease;
+  }
+
+  .contact a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .contact .sep {
+    color: var(--ink-faint);
+    font-size: 10px;
+  }
+
+  /* ─── Sections ───────────────────────────────── */
+  section {
+    margin-bottom: 36px;
+  }
+
+  h2 {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ─── Research statement ─────────────────────── */
+  .research-statement {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .research-statement p + p {
+    margin-top: 10px;
+  }
+
+  .accent {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ─── Education / Experience entries ─────────── */
+  .entry {
+    margin-bottom: 18px;
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .entry-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+
+  /* Role pill — colored frame */
+  .role-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 2px 8px;
+    margin-left: 6px;
+    letter-spacing: 0;
+    vertical-align: 2px;
+    line-height: 1.3;
+  }
+
+  .entry-date {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-weight: 400;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entry-subtitle {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .entry-body {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .entry-body::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--rule);
+  }
+
+  /* ─── Publications ───────────────────────────── */
+  .pub-lead {
+    font-family: var(--serif);
+    font-size: 15.5px;
+    color: var(--ink);
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  .pub-lead .hl {
+    background-color: var(--highlight);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-weight: 500;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .pub {
+    margin-bottom: 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 18px;
+    align-items: baseline;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .pub-title {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .pub-venue {
+    font-size: 10.5px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .pub-venue .oral {
+    margin-left: 2px;
+  }
+
+  .pub-authors {
+    grid-column: 1 / -1;
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 1px;
+  }
+
+  .pub-authors .me {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ─── Print ──────────────────────────────────── */
+  @media print {
+    @page {
+      size: A4;
+      margin: 0.5in;
+    }
+
+    html { font-size: 10.5pt; }
+
+    body {
+      background: white;
+      color: #000;
+    }
+
+    .page {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    header { margin-bottom: 24pt; }
+
+    h1 {
+      font-size: 32pt;
+      margin-bottom: 10pt;
+    }
+
+    .contact { font-size: 9pt; }
+    .contact a {
+      color: #000;
+      border-bottom: none;
+    }
+
+    section { margin-bottom: 16pt; page-break-inside: auto; }
+
+    h2 {
+      font-size: 8.5pt;
+      margin-bottom: 10pt;
+      padding-bottom: 4pt;
+      color: var(--accent);
+    }
+
+    .research-statement { font-size: 10.5pt; }
+    .pub-lead { font-size: 10.5pt; margin-bottom: 12pt; }
+
+    .role-pill {
+      font-size: 8pt;
+      padding: 1pt 5pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .pub-lead .hl {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .entry, .pub {
+      page-break-inside: avoid;
+      margin-bottom: 9pt;
+    }
+
+    .entry-title { font-size: 10.5pt; }
+    .entry-date { font-size: 8.5pt; }
+    .entry-subtitle, .entry-body { font-size: 9.5pt; }
+
+    .pub { font-size: 9.5pt; }
+    .pub-authors { font-size: 9pt; }
+    .pub-venue { font-size: 8pt; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Qingyu Yin</h1>
+    <nav class="contact">
+      <a href="mailto:qingyu.yin@zju.edu.cn">qingyu.yin@zju.edu.cn</a>
+      <span class="sep">●</span>
+      <a href="https://mikastars39.notion.site">Webpage</a>
+      <span class="sep">●</span>
+      <a href="https://github.com/mikastars39">GitHub</a>
+      <span class="sep">●</span>
+      <a href="https://scholar.google.com/citations?user=BRsj8FAAAAAJ&hl=zh-CN">Google Scholar</a>
+      <span class="sep">●</span>
+      <a href="https://x.com/MikaStars39">X</a>
+      <span class="sep">●</span>
+      <span>+86 151 5339 9108</span>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Research</h2>
+    <div class="research-statement">
+      <p>Currently focused on <span class="accent">scaling RL</span>. Previously worked on <span class="accent">alignment</span>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-title">Zhejiang University</div>
+        <div class="entry-date">2022.09 — 2026.06</div>
+      </div>
+      <div class="entry-subtitle">B.A. in English (Linguistics)</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-title">MiniMax · Post-Training Team <span class="role-pill">TOP Talent Intern 人才计划实习生</span></div>
+        <div class="entry-date">2026.02 — Present</div>
+      </div>
+      <div class="entry-body">Post-training of M2.7 and M3 series models.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-title">JD Group, JoyAI · Post-Training Team <span class="role-pill">JD Young Intern</span></div>
+        <div class="entry-date">2025.11 — 2026.02</div>
+      </div>
+      <div class="entry-body">As one of 3 core members, built the entire RL pipeline for JoyAI-LLM-Flash from scratch.</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-header">
+        <div class="entry-title">Rednote Hi Lab · Post-Training Team <span class="role-pill">Ace Top Talent Intern 人才计划实习生</span></div>
+        <div class="entry-date">2025.07 — 2025.11</div>
+      </div>
+      <div class="entry-body">Post-training of dots.llm2 / dots.vlm2.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <p class="pub-lead"><span class="hl">10 papers published at ICML, ICLR, EMNLP, ACL, etc. — 6 as first author, 2 Oral Presentations.</span></p>
+
+    <div class="pub">
+      <div class="pub-title">Evaluating Parameter Efficient Methods for RLVR</div>
+      <div class="pub-venue">ICML&#8217;26</div>
+      <div class="pub-authors"><span class="me">Qingyu Yin*</span>, Yulun Wu*, Zhennan Shen*, Sunbowen Li, Zhilin Wang, Yanshu Li, Chak Tou Leong, Jiale Kang, Jinjin Gu.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Constrain Alignment with Sparse AutoEncoders</div>
+      <div class="pub-venue">ICML&#8217;25</div>
+      <div class="pub-authors"><span class="me">Qingyu Yin</span>, Chak Tou Leong, Hongbo Zhang, Minjun Zhu, Hanqi Yan, Qiang Zhang, Yulan He, Wenjie Li, Jun Wang, Yue Zhang.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">StableMask: Refining Causal Masking in Decoder-only Transformers</div>
+      <div class="pub-venue">ICML&#8217;24</div>
+      <div class="pub-authors"><span class="me">Qingyu Yin</span>, Xuzheng He, Xiang Zhuang, Yu Zhao, Jianhua Yao, Xiaoyu Shen, Qiang Zhang.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">MiSS: Balancing LoRA Performance and Efficiency with Simple Shard Sharing</div>
+      <div class="pub-venue">ICLR&#8217;26</div>
+      <div class="pub-authors">Jiale Kang*, <span class="me">Qingyu Yin*</span>.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">ModRWKV: Transformer Multimodality in Linear Time</div>
+      <div class="pub-venue">EMNLP&#8217;25 <span class="oral">🏆 Oral</span></div>
+      <div class="pub-authors"><span class="me">Qingyu Yin*</span>, Jiale Kang*, Ziyin Yue*, Jiang Rui, Weile Li, Zening Lu, Zhouran Ji.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Deeper Insights Without Updates: The Power of In-Context Learning Over Fine-Tuning</div>
+      <div class="pub-venue">EMNLP&#8217;24 Findings</div>
+      <div class="pub-authors"><span class="me">Qingyu Yin</span>, Xuzheng He, Luoao Deng, Chak Tou Leong, Fan Wang, Yanzhao Yan, Xiaoyu Shen, Qiang Zhang.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Aligned LLMs&#8217; Safety Mechanisms Tend to Be Anchored in The Template Region</div>
+      <div class="pub-venue">ACL&#8217;25 <span class="oral">🏆 Oral</span></div>
+      <div class="pub-authors">Chak Tou Leong, <span class="me">Qingyu Yin</span>, Jian Wang, Wenjie Li.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Vision-DeepResearch: Incentivizing DeepResearch Capability in Multimodal Large Language Models</div>
+      <div class="pub-venue">ICML&#8217;26</div>
+      <div class="pub-authors">Wenxuan Huang, Yu Zeng, Qiuchen Wang, Zhen Fang, Shaosheng Cao, Zheng Chu, <span class="me">Qingyu Yin</span>, Shuang Chen, Zhenfei Yin, Lin Chen, et al.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Interleaving Reasoning for Better Text-to-Image Generation</div>
+      <div class="pub-venue">ICLR&#8217;26</div>
+      <div class="pub-authors">Wenxuan Huang, Shuang Chen, Zheyong Xie, Shaosheng Cao, Shixiang Tang, Yufan Shen, <span class="me">Qingyu Yin</span>, Wenbo Hu, Xiaoman Wang, Yuntian Tang, et al.</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">MMM: Multilingual Mutual Reinforcement Effect Mix Datasets &amp; Test with Open-domain Information Extraction LLMs</div>
+      <div class="pub-venue">ACL&#8217;26 Findings</div>
+      <div class="pub-authors">Chengguang Gan, Sunbowen Lee, <span class="me">Qingyu Yin</span>, Xinyang He, Hanjun Wei, Yunhao Liang, Younghun Lim, Shijian Wang, Hexiang Huang, Qinghao Zhang, et al.</div>
+    </div>
+
+  </section>
+
+</div>
+</body>
+</html>

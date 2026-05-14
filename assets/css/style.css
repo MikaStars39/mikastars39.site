@@ -322,13 +322,17 @@ a.academic-link:hover {
     nav { padding: 0 1.25rem; }
 
     .page-container.active {
-        padding: 56px 1.5rem 1.5rem;
+        padding: 80px 1.5rem 1.5rem;
     }
 
     .profile-section {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         align-items: flex-start;
+    }
+
+    .glass-wrap-links {
+        margin-top: 0.75rem;
     }
 
     .profile-flip {

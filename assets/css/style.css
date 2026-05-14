@@ -46,8 +46,8 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    min-height: 100vh;
-    overflow-x: hidden;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* ====== Snake Background ====== */
@@ -150,10 +150,11 @@ nav {
     flex-direction: column;
     align-items: stretch;
     max-width: 760px;
+    height: 100vh;
     margin: 0 auto;
-    margin-top: 5rem;
-    margin-bottom: 4rem;
-    padding: 3rem 3rem 2.5rem;
+    padding: 56px 3rem 2rem;
+    padding-top: clamp(80px, 15vh, 160px);
+    overflow-y: auto;
     background: none;
     animation: fadeIn 0.4s ease;
 }
@@ -175,15 +176,54 @@ nav {
 
 .profile-image {
     flex-shrink: 0;
+    perspective: 600px;
+    position: relative;
+    margin-top: -0.75rem;
 }
 
-.profile-image img {
+.flip-hint {
+    position: absolute;
+    top: -1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.profile-flip {
     width: 200px;
     height: 200px;
+    cursor: pointer;
+}
+
+.profile-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.22, 1.2, 0.36, 1);
+    transform-style: preserve-3d;
+}
+
+.profile-flip.flipped .profile-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.profile-front,
+.profile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border-radius: 12px;
-    display: block;
     object-fit: cover;
     border: 1px solid var(--rule);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.profile-back {
+    transform: rotateY(180deg);
 }
 
 .profile-info h1 {
@@ -279,14 +319,10 @@ a.academic-link:hover {
 
 /* ====== Mobile ====== */
 @media (max-width: 768px) {
-    body { padding-top: 56px; }
-
     nav { padding: 0 1.25rem; }
 
     .page-container.active {
-        padding: 2rem 1.5rem 2rem;
-        margin: 1rem 0.75rem;
-        margin-top: 1rem;
+        padding: 56px 1.5rem 1.5rem;
     }
 
     .profile-section {
@@ -295,7 +331,7 @@ a.academic-link:hover {
         align-items: flex-start;
     }
 
-    .profile-image img {
+    .profile-flip {
         width: 120px;
         height: 120px;
     }

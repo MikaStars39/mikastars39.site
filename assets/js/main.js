@@ -23,20 +23,36 @@
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
             updateIcon();
-            setTimeout(function () {
-                var r = window.__liquidGLRenderer__;
-                if (r && r.captureSnapshot) r.captureSnapshot();
-            }, 300);
+            var r = window.__liquidGLRenderer__;
+            if (!r) return;
+            r.canvas.style.opacity = '0';
+            r._capturing = false;
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    r._capturing = false;
+                    r.captureSnapshot().then(function () {
+                        r.canvas.style.opacity = '1';
+                    });
+                });
+            });
         });
     });
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
         if (!document.documentElement.getAttribute('data-theme')) {
             updateIcon();
-            setTimeout(function () {
-                var r = window.__liquidGLRenderer__;
-                if (r && r.captureSnapshot) r.captureSnapshot();
-            }, 300);
+            var r = window.__liquidGLRenderer__;
+            if (!r) return;
+            r.canvas.style.opacity = '0';
+            r._capturing = false;
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    r._capturing = false;
+                    r.captureSnapshot().then(function () {
+                        r.canvas.style.opacity = '1';
+                    });
+                });
+            });
         }
     });
 })();
@@ -143,8 +159,47 @@
         }
     }
 
+    window.__snakeBg__ = function() { return { heat: heat, cols: cols, rows: rows, CELL: CELL }; };
+
     document.addEventListener('DOMContentLoaded', init);
 })();
+
+// ====== Flip ripple ======
+function triggerFlipRipple(el) {
+    var bg = window.__snakeBg__ && window.__snakeBg__();
+    if (!bg || !bg.heat) return;
+    var rect = el.getBoundingClientRect();
+    var cx = (rect.left + rect.width / 2) / bg.CELL;
+    var cy = (rect.top + rect.height / 2) / bg.CELL;
+    var maxR = 18;
+    var frame = 0;
+    var duration = 40;
+    function step() {
+        if (frame > duration) return;
+        var radius = (frame / duration) * maxR;
+        var thickness = 3;
+        var r0 = Math.max(0, Math.floor(cy - radius - thickness));
+        var r1 = Math.min(bg.rows - 1, Math.ceil(cy + radius + thickness));
+        var c0 = Math.max(0, Math.floor(cx - radius - thickness));
+        var c1 = Math.min(bg.cols - 1, Math.ceil(cx + radius + thickness));
+        for (var r = r0; r <= r1; r++) {
+            for (var c = c0; c <= c1; c++) {
+                var dx = c + 0.5 - cx;
+                var dy = r + 0.5 - cy;
+                var d = Math.sqrt(dx * dx + dy * dy);
+                var diff = Math.abs(d - radius);
+                if (diff < thickness) {
+                    var intensity = 0.5 * (1 - diff / thickness) * (1 - frame / duration);
+                    var idx = r * bg.cols + c;
+                    if (bg.heat[idx] < intensity) bg.heat[idx] = intensity;
+                }
+            }
+        }
+        frame++;
+        requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
 
 // ====== 2. Initialize liquidGL ======
 document.addEventListener('DOMContentLoaded', function () {

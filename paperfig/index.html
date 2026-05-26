@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paper Figure Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&family=Source+Serif+4:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --panel: #ffffff;
+    --line: #e6e3dc;
+    --line-soft: #efece5;
+    --ink: #1f1d18;
+    --ink-soft: #6c6a64;
+    --accent: #2E5C9E;
+    --bad: #c0392b;
+    --radius: 8px;
+  }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--bg);
+    font-family: 'Inter', Helvetica, Arial, sans-serif; color: var(--ink); font-size: 13px; }
+  #root { width: 100%; height: 100vh; }
+  * { box-sizing: border-box; }
+
+  .pf-app { display: flex; flex-direction: column; height: 100%; }
+
+  /* header */
+  .pf-hdr { padding: 14px 20px 12px; border-bottom: 1px solid var(--line); background: #fbfaf7; }
+  .pf-hdr-title { font-size: 14px; font-weight: 600; letter-spacing: -0.005em; }
+  .pf-hdr-sub { font-size: 11.5px; color: var(--ink-soft); margin-top: 1px; }
+
+  /* main */
+  .pf-main { flex: 1; min-height: 0; display: flex; }
+  .pf-preview { flex: 1; min-width: 0; padding: 28px; overflow: auto; display: flex;
+    align-items: flex-start; justify-content: center; }
+  .pf-card { background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px; box-shadow: 0 1px 0 rgba(0,0,0,0.02); }
+
+  /* right panel */
+  .pf-panel { width: 340px; flex-shrink: 0; background: var(--panel);
+    border-left: 1px solid var(--line); overflow-y: auto; padding: 4px 0 24px; }
+  .pf-panel::-webkit-scrollbar { width: 10px; }
+  .pf-panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 5px;
+    border: 2px solid var(--panel); background-clip: content-box; }
+
+  /* sections */
+  .pf-sect { border-bottom: 1px solid var(--line-soft); }
+  .pf-sect:last-child { border-bottom: none; }
+  .pf-sect-hd { width: 100%; display: flex; align-items: center; justify-content: space-between;
+    background: none; border: none; padding: 12px 16px 10px; font: inherit; font-weight: 600;
+    font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft);
+    cursor: pointer; }
+  .pf-sect-hd:hover { color: var(--ink); }
+  .pf-sect-chev { display: inline-block; transition: transform 0.15s; transform: rotate(90deg);
+    font-weight: 400; color: var(--ink-soft); }
+  .pf-sect-chev[data-open="1"] { transform: rotate(90deg); }
+  .pf-sect-chev[data-open="0"] { transform: rotate(0deg); }
+  .pf-sect-body { padding: 0 16px 14px; display: flex; flex-direction: column; gap: 9px; }
+
+  /* rows */
+  .pf-row { display: flex; align-items: center; gap: 10px; }
+  .pf-row-stack { flex-direction: column; align-items: stretch; gap: 6px; }
+  .pf-lbl { flex-shrink: 0; width: 86px; font-size: 12px; color: var(--ink-soft); }
+  .pf-ctrl { flex: 1; min-width: 0; }
+  .pf-pair { display: flex; gap: 6px; }
+
+  /* inputs */
+  .pf-input { width: 100%; min-width: 0; height: 28px; padding: 0 8px;
+    border: 1px solid rgba(0,0,0,0.12); border-radius: 6px; background: #fdfcfa;
+    color: inherit; font: inherit; font-size: 12px; outline: none; }
+  .pf-input:focus { border-color: rgba(46,92,158,0.6); background: #fff; }
+  .pf-mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-size: 11.5px; }
+  .pf-bad { border-color: rgba(192,57,43,0.6); }
+  .pf-textarea { width: 100%; height: auto; padding: 8px; line-height: 1.45; resize: vertical;
+    font-size: 11px; }
+  select.pf-input { appearance: none; padding-right: 22px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.45)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat: no-repeat; background-position: right 8px center; }
+
+  /* slider */
+  .pf-sl { display: flex; align-items: center; gap: 10px; }
+  .pf-sl input[type="range"] { flex: 1; min-width: 0; height: 4px; -webkit-appearance: none;
+    appearance: none; background: var(--line); border-radius: 2px; outline: none; }
+  .pf-sl input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none;
+    width: 14px; height: 14px; border-radius: 50%; background: var(--ink); cursor: pointer;
+    border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.2); }
+  .pf-sl input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%;
+    background: var(--ink); cursor: pointer; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2); }
+  .pf-sl-val { font-size: 11.5px; color: var(--ink-soft);
+    font-variant-numeric: tabular-nums; min-width: 38px; text-align: right;
+    font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; }
+
+  /* toggle */
+  .pf-toggle { width: 30px; height: 17px; border: none; padding: 0; border-radius: 9px;
+    background: rgba(0,0,0,0.18); position: relative; cursor: pointer; transition: background 0.15s; }
+  .pf-toggle span { position: absolute; left: 2px; top: 2px; width: 13px; height: 13px;
+    background: #fff; border-radius: 50%; transition: left 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+  .pf-toggle[data-on="1"] { background: var(--ink); }
+  .pf-toggle[data-on="1"] span { left: 15px; }
+
+  /* segmented */
+  .pf-seg { display: flex; background: rgba(0,0,0,0.05); border-radius: 6px; padding: 2px; gap: 2px; }
+  .pf-seg-btn { flex: 1; height: 24px; border: none; background: transparent; font: inherit;
+    font-size: 11.5px; font-weight: 500; color: var(--ink-soft); border-radius: 4px; cursor: pointer;
+    transition: background 0.1s, color 0.1s; }
+  .pf-seg-btn:hover { color: var(--ink); }
+  .pf-seg-btn[data-on="1"] { background: #fff; color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07); }
+
+  /* color */
+  .pf-color { display: flex; align-items: center; gap: 8px; }
+  .pf-color-sw { display: inline-block; width: 20px; height: 20px; border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
+
+  /* buttons */
+  .pf-btn { flex: 1; height: 28px; padding: 0 10px; border: 1px solid rgba(0,0,0,0.12);
+    background: #fdfcfa; border-radius: 6px; font: inherit; font-size: 11.5px; font-weight: 500;
+    color: var(--ink); cursor: pointer; transition: background 0.1s, border-color 0.1s; }
+  .pf-btn:hover { background: #fff; border-color: rgba(0,0,0,0.22); }
+  .pf-btn-mini { height: 22px; padding: 0 8px; font-size: 11px; color: var(--ink-soft);
+    background: transparent; border: none; align-self: flex-start; cursor: pointer; margin-top: 2px; }
+  .pf-btn-mini:hover { color: var(--ink); text-decoration: underline; }
+
+  /* hint */
+  .pf-hint { font-size: 11px; color: var(--ink-soft); line-height: 1.45; margin-bottom: 2px; }
+
+  /* mobile responsive */
+  @media (max-width: 768px) {
+    #root { height: auto; min-height: 100vh; }
+    .pf-app { height: auto; min-height: 100vh; }
+    .pf-main { flex-direction: column; }
+    .pf-preview { padding: 16px; overflow-x: auto; }
+    .pf-panel { width: 100%; border-left: none; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+  <script src="https://unpkg.com/svg2pdf.js@2.3.0/dist/svg2pdf.umd.min.js"></script>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="charts.jsx"></script>
+  <script type="text/babel" src="figures.jsx"></script>
+</body>
+</html>

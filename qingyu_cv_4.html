@@ -55,6 +55,24 @@
     margin-bottom: 18px;
   }
 
+  h1#cv-name {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s ease;
+  }
+
+  h1#cv-name:hover {
+    color: var(--accent);
+  }
+
+  .lang-hint {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 400;
+    margin: -10px 0 16px;
+    letter-spacing: 0.02em;
+  }
+
   .contact {
     font-size: 13px;
     color: var(--ink-soft);
@@ -256,6 +274,8 @@
       margin: 0.5in;
     }
 
+    .lang-hint { display: none; }
+
     html { font-size: 10.5pt; }
 
     body {
@@ -325,11 +345,12 @@
 <div class="page">
 
   <header>
-    <h1>Qingyu Yin</h1>
+    <h1 id="cv-name" title="Click to switch language / 点击切换语言" data-en="Qingyu Yin" data-zh="尹清宇">Qingyu Yin</h1>
+    <div class="lang-hint" id="lang-hint" data-en="↑ Click my name for 中文" data-zh="↑ 点击姓名切换 English">↑ Click my name for 中文</div>
     <nav class="contact">
       <a href="mailto:qingyu.yin@zju.edu.cn">qingyu.yin@zju.edu.cn</a>
       <span class="sep">●</span>
-      <a href="https://mikastars39.notion.site">Webpage</a>
+      <a href="https://mikastars39.notion.site" data-en="Webpage" data-zh="个人主页">Webpage</a>
       <span class="sep">●</span>
       <a href="https://github.com/mikastars39">GitHub</a>
       <span class="sep">●</span>
@@ -342,54 +363,54 @@
   </header>
 
   <section>
-    <h2>Research</h2>
-    <div class="research-statement">
+    <h2 data-en="Research" data-zh="研究方向">Research</h2>
+    <div class="research-statement" data-en='<p>Currently focused on <span class="accent">scaling RL</span>. Previously worked on <span class="accent">alignment</span>.</p>' data-zh='<p>目前专注于<span class="accent">强化学习的规模化扩展</span>,此前从事<span class="accent">对齐</span>研究。</p>'>
       <p>Currently focused on <span class="accent">scaling RL</span>. Previously worked on <span class="accent">alignment</span>.</p>
     </div>
   </section>
 
   <section>
-    <h2>Education</h2>
+    <h2 data-en="Education" data-zh="教育经历">Education</h2>
     <div class="entry">
       <div class="entry-header">
-        <div class="entry-title">Zhejiang University</div>
+        <div class="entry-title" data-en="Zhejiang University" data-zh="浙江大学">Zhejiang University</div>
         <div class="entry-date">2022.09 — 2026.06</div>
       </div>
-      <div class="entry-subtitle">B.A. in English (Linguistics)</div>
+      <div class="entry-subtitle" data-en="B.A. in English (Linguistics)" data-zh="英语(语言学)学士">B.A. in English (Linguistics)</div>
     </div>
   </section>
 
   <section>
-    <h2>Experience</h2>
+    <h2 data-en="Experience" data-zh="工作经历">Experience</h2>
 
     <div class="entry">
       <div class="entry-header">
-        <div class="entry-title">MiniMax · Post-Training Team <span class="role-pill">TOP Talent Intern 人才计划实习生</span></div>
-        <div class="entry-date">2026.02 — Present</div>
+        <div class="entry-title" data-en='MiniMax · Post-Training Team <span class="role-pill">TOP Talent Intern 人才计划实习生</span>' data-zh='MiniMax · 后训练团队 <span class="role-pill">人才计划实习生</span>'>MiniMax · Post-Training Team <span class="role-pill">TOP Talent Intern 人才计划实习生</span></div>
+        <div class="entry-date" data-en="2026.02 — Present" data-zh="2026.02 — 至今">2026.02 — Present</div>
       </div>
-      <div class="entry-body">Post-training of M2.7 and M3 series models.</div>
+      <div class="entry-body" data-en="Post-training of M2.7 and M3 series models." data-zh="负责 M2.7 与 M3 系列模型的后训练。">Post-training of M2.7 and M3 series models.</div>
     </div>
 
     <div class="entry">
       <div class="entry-header">
-        <div class="entry-title">JD Group, JoyAI · Post-Training Team <span class="role-pill">JD Young Intern</span></div>
+        <div class="entry-title" data-en='JD Group, JoyAI · Post-Training Team <span class="role-pill">JD Young Intern</span>' data-zh='JD Group, JoyAI · 后训练团队 <span class="role-pill">京东青年实习生</span>'>JD Group, JoyAI · Post-Training Team <span class="role-pill">JD Young Intern</span></div>
         <div class="entry-date">2025.11 — 2026.02</div>
       </div>
-      <div class="entry-body">As one of 3 core members, built the entire RL pipeline for JoyAI-LLM-Flash from scratch.</div>
+      <div class="entry-body" data-en="As one of 3 core members, built the entire RL pipeline for JoyAI-LLM-Flash from scratch." data-zh="作为 3 名核心成员之一,从零搭建了 JoyAI-LLM-Flash 完整的强化学习训练流程。">As one of 3 core members, built the entire RL pipeline for JoyAI-LLM-Flash from scratch.</div>
     </div>
 
     <div class="entry">
       <div class="entry-header">
-        <div class="entry-title">Rednote Hi Lab · Post-Training Team <span class="role-pill">Ace Top Talent Intern 人才计划实习生</span></div>
+        <div class="entry-title" data-en='Rednote Hi Lab · Post-Training Team <span class="role-pill">Ace Top Talent Intern 人才计划实习生</span>' data-zh='Rednote Hi Lab · 后训练团队 <span class="role-pill">Ace 人才计划实习生</span>'>Rednote Hi Lab · Post-Training Team <span class="role-pill">Ace Top Talent Intern 人才计划实习生</span></div>
         <div class="entry-date">2025.07 — 2025.11</div>
       </div>
-      <div class="entry-body">Post-training of dots.llm2 / dots.vlm2.</div>
+      <div class="entry-body" data-en="Post-training of dots.llm2 / dots.vlm2." data-zh="负责 dots.llm2 / dots.vlm2 的后训练。">Post-training of dots.llm2 / dots.vlm2.</div>
     </div>
   </section>
 
   <section>
-    <h2>Publications</h2>
-    <p class="pub-lead"><span class="hl">10 papers published at ICML, ICLR, EMNLP, ACL, etc. — 6 as first author, 2 Oral Presentations.</span></p>
+    <h2 data-en="Publications" data-zh="论文发表">Publications</h2>
+    <p class="pub-lead" data-en='<span class="hl">10 papers published at ICML, ICLR, EMNLP, ACL, etc. — 6 as first author, 2 Oral Presentations.</span>' data-zh='<span class="hl">在 ICML、ICLR、EMNLP、ACL 等顶会发表论文 10 篇 —— 其中 6 篇为第一作者,2 篇口头报告(Oral)。</span>'><span class="hl">10 papers published at ICML, ICLR, EMNLP, ACL, etc. — 6 as first author, 2 Oral Presentations.</span></p>
 
     <div class="pub">
       <div class="pub-title">Evaluating Parameter Efficient Methods for RLVR</div>
@@ -454,5 +475,26 @@
   </section>
 
 </div>
+
+<script>
+  (function () {
+    var lang = 'en';
+    var titles = { en: 'Qingyu Yin — Curriculum Vitae', zh: '尹清宇 — 简历' };
+    var nodes = document.querySelectorAll('[data-en][data-zh]');
+
+    function apply() {
+      document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+      document.title = titles[lang];
+      nodes.forEach(function (el) {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+    }
+
+    document.getElementById('cv-name').addEventListener('click', function () {
+      lang = (lang === 'en') ? 'zh' : 'en';
+      apply();
+    });
+  })();
+</script>
 </body>
 </html>

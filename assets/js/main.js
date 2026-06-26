@@ -201,6 +201,34 @@ function triggerFlipRipple(el) {
     requestAnimationFrame(step);
 }
 
+// ====== Marquee: repeat + duplicate items for a seamless -50% loop ======
+document.addEventListener('DOMContentLoaded', function () {
+    var marquee = document.querySelector('.oss-marquee');
+    var track = document.querySelector('.oss-track');
+    if (!marquee || !track || track.dataset.cloned) return;
+
+    var base = Array.prototype.slice.call(track.children);
+    var setWidth = track.scrollWidth;
+    var viewport = marquee.clientWidth || window.innerWidth || 800;
+
+    // Repeat the base set until one group comfortably exceeds the viewport,
+    // so the strip never shows empty space even with only a few short items.
+    var repeat = Math.max(2, Math.ceil((viewport * 1.4) / Math.max(setWidth, 1)));
+    for (var k = 1; k < repeat; k++) {
+        base.forEach(function (el) { track.appendChild(el.cloneNode(true)); });
+    }
+
+    // Duplicate the whole group once; animating to -50% lands exactly on the
+    // copy boundary, so the loop is seamless.
+    var group = Array.prototype.slice.call(track.children);
+    group.forEach(function (el) {
+        var clone = el.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+    });
+    track.dataset.cloned = '1';
+});
+
 // ====== 2. Initialize liquidGL ======
 document.addEventListener('DOMContentLoaded', function () {
     if (typeof liquidGL === 'undefined') return;
@@ -219,4 +247,119 @@ document.addEventListener('DOMContentLoaded', function () {
             reveal: 'fade',
         });
     }, 300);
+});
+
+// ====== 3. Split-flap role rotator ======
+// Self-contained: cycles three lines with an eased upward 3D flip. Touches only
+// #role-rotator, so the canvas rAF loop, liquidGL, and theme toggle are untouched.
+document.addEventListener('DOMContentLoaded', function () {
+    var root = document.getElementById('role-rotator');
+    if (!root) return;
+
+    var LINES = [
+        'Currently: MiniMax Post-Train Team',
+        'Previously: JD JoyAI LLM',
+        'Previously: Rednote Dots'
+    ];
+
+    var current = root.querySelector('.line-flip__face');
+    if (!current) return;
+    current.textContent = LINES[0];
+
+    var HOLD = 3000;   // ms held on each line (within 2.6-3.4s)
+    var FLIP = 740;    // ms flip duration (matches CSS transition)
+    var idx = 0;
+    var timer = null;
+
+    var reduceMQ = window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : null;
+    function prefersReduced() { return reduceMQ ? reduceMQ.matches : false; }
+
+    function makePanel(text) {
+        var p = document.createElement('span');
+        p.className = 'line-flip__face';
+        p.textContent = text;
+        return p; // starts at rotateX(-90deg): parked at the bottom of the drum
+    }
+
+    function step() {
+        var nextIdx = (idx + 1) % LINES.length; // 3 -> 1 wrap is just the modulo
+        var incoming = makePanel(LINES[nextIdx]);
+        root.appendChild(incoming);
+
+        // Force a reflow so the incoming panel's idle transform is committed
+        // before we transition it; otherwise it would snap in without animating.
+        void incoming.offsetWidth;
+
+        root.classList.add('is-animating');
+        current.classList.remove('is-current');
+        current.classList.add('is-leaving');
+        incoming.classList.add('is-current');
+
+        var leaving = current;
+        current = incoming;
+        idx = nextIdx;
+
+        // After the flip settles, drop the old panel and disarm. Because we never
+        // reorder a fixed set of nodes, every step is identical -> the 3->1
+        // transition shows no jump or flash.
+        timer = window.setTimeout(function () {
+            if (leaving && leaving.parentNode) {
+                leaving.parentNode.removeChild(leaving);
+            }
+            root.classList.remove('is-animating');
+            timer = window.setTimeout(step, HOLD);
+        }, FLIP + 80);
+    }
+
+    function start() {
+        if (timer) return;
+        if (prefersReduced()) return; // honor reduced-motion: stay static
+        timer = window.setTimeout(step, HOLD);
+    }
+
+    function stop() {
+        if (timer) { window.clearTimeout(timer); timer = null; }
+    }
+
+    // Settle cleanly back to the current line: kill any mid-flip leaving panels.
+    function settle() {
+        root.classList.remove('is-animating');
+        var stale = root.querySelectorAll('.line-flip__face.is-leaving');
+        for (var i = 0; i < stale.length; i++) {
+            if (stale[i].parentNode) stale[i].parentNode.removeChild(stale[i]);
+        }
+        if (current) {
+            current.className = 'line-flip__face is-current';
+        }
+    }
+
+    // Pause when the tab is hidden to save cycles; resume cleanly.
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            stop();
+            if (root.classList.contains('is-animating')) settle();
+        } else {
+            start();
+        }
+    });
+
+    // React to reduced-motion toggled at RUNTIME: halt the loop and reset to a
+    // static line with no leftover animation state.
+    function onReduceChange(e) {
+        if (e.matches) {
+            stop();
+            settle();
+            current.textContent = LINES[idx]; // whatever line is showing stays static
+        } else {
+            start();
+        }
+    }
+    if (reduceMQ) {
+        if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', onReduceChange);
+        else if (reduceMQ.addListener) reduceMQ.addListener(onReduceChange); // older browsers
+    }
+
+    start(); // start() itself no-ops under reduced-motion, leaving line 1 static
 });

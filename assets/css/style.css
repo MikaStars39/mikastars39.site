@@ -265,6 +265,65 @@ a.academic-link:hover {
     border-radius: 4px;
 }
 
+/* ====== Open-source Marquee ====== */
+.oss-strip {
+    width: 100%;
+    margin-top: 0.2rem;
+}
+
+.oss-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.oss-track {
+    display: flex;
+    width: max-content;
+    animation: oss-scroll 28s linear infinite;
+}
+
+.oss-marquee:hover .oss-track {
+    animation-play-state: paused;
+}
+
+.oss-item {
+    flex-shrink: 0;
+    margin: 0 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink-faint);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+a.oss-item:hover {
+    color: var(--accent);
+}
+
+.oss-plain {
+    font-weight: 400;
+    font-style: italic;
+}
+
+@keyframes oss-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .oss-track { animation: none; }
+    .oss-marquee {
+        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+}
+
 /* ====== Glass Wrapper ====== */
 .glass-wrap {
     position: relative;
@@ -275,7 +334,7 @@ a.academic-link:hover {
 .glass-wrap-links {
     display: flex;
     align-self: center;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .glass-target {
@@ -362,4 +421,79 @@ a.academic-link:hover {
         margin: 0;
         padding: 2rem;
     }
+}
+
+/* ====== Drum (cylinder) role rotator ====== */
+/* Occupies EXACTLY one text line, matching .profile-info p metrics
+   (font-size 1rem, line-height 1.55, margin .25rem 0, color --ink-soft).
+   Lines sit on the surface of a cylinder and rotate up like an odometer drum.
+   Height is line-height-relative (em) so it tracks every breakpoint. */
+.line-flip {
+    position: relative;
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    height: 1.55em;               /* one line, tracks font-size at all breakpoints */
+    overflow: hidden;
+    perspective: 340px;           /* foreshortening that gives the cylinder curve */
+    perspective-origin: 50% 50%;
+}
+
+.line-flip__face {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1.55em;
+    line-height: 1.55em;          /* vertically centers text within the single line */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    /* Idle state: parked one line below the window, tilted back into the drum.
+       translateY carries the vertical scroll (so lines never overlap) while
+       rotateX curves them over the cylinder surface. */
+    transform: translateY(100%) rotateX(-82deg);
+}
+
+/* The visible line, flat on the front of the drum. */
+.line-flip__face.is-current {
+    transform: translateY(0) rotateX(0deg);
+}
+
+/* Incoming line rolls up from the bottom into the front face. */
+.line-flip.is-animating .line-flip__face.is-current {
+    transition: transform 0.72s cubic-bezier(0.34, 0.0, 0.2, 1);
+}
+
+/* Outgoing line keeps rolling up and over the top of the drum. */
+.line-flip.is-animating .line-flip__face.is-leaving {
+    transform: translateY(-100%) rotateX(82deg);
+    transition: transform 0.72s cubic-bezier(0.34, 0.0, 0.2, 1);
+}
+
+/* Reduced motion: no rolling. Show the current line statically (flat), with a
+   gentle cross-fade handled by the JS; nothing rotates. */
+@media (prefers-reduced-motion: reduce) {
+    .line-flip { perspective: none; }
+    .line-flip__face {
+        transform: none;
+        transition: opacity 0.5s ease;
+        opacity: 0;
+    }
+    .line-flip__face.is-current {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+/* Responsive font tracking. Declared AFTER the base .line-flip rule above so
+   it wins on source order at each breakpoint, keeping the rotator's font (and
+   therefore its 1.55em one-line height) in lockstep with .profile-info p. */
+@media (max-width: 768px) {
+    .line-flip { font-size: 0.93rem; }
 }
